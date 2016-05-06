@@ -1,16 +1,24 @@
-function MP_Experiment(subNo)
+function MP_Experiment(subNo, condition)
 
 %Code based on sign meaning experiment, Feb 2014
 %                         
 %subNo, the subject number to run. Subject code above
 %99 is for testing; data overwrite will not be checked.
 %
+%
+%condition, one of 6 set lists of items, specify 1-6
+% 1= MannerOfMotionCondition
+% 2= MannerOfMotionCondition_Instrumental
+% 3= PathCondition
+% 4= PathCondition_Instrumental
+% 5= EffectCondition
+% 6= MeansCondition
 
 addpath('HelperFunctions')
 
 global parameters
 
-parameters.datafilepointer = AssignDataFile('MannerPath-DutchFrench',subNo);
+parameters.datafilepointer = AssignDataFile('MannerPathPriming',subNo);
 
 try
     
@@ -36,11 +44,11 @@ try
     parameters.subNo = subNo;
     
     %Read the file into matlab
-    vidNames = read_mixed_csv('dutch_french_items.csv',',')
+    vidNames = read_mixed_csv('new_final.csv',',')
     
     %Routine to pick the specified signList (algebra to get us the right rows)
-    start_Index = 2;
-    end_Index = 17;
+    start_Index = (8*condition)-6;
+    end_Index = (8*condition)+1;
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %     %Turn list into vectors of variables
